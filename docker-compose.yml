@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+    amitc-dev-server:
+        network_mode: host
+        container_name: code-server
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+            - '/Users/andreasmaier/Documents/Development/amitc-dev-server:/home/coder/project'
+        image: amitc-dev-server
