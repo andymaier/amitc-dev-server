@@ -12,6 +12,7 @@ RUN sudo -E apt-get update && sudo -E apt-get install -y \
     python3-pip \
     openjdk-11-jdk \
     docker.io\
+    maven \
  && sudo rm -rf /var/lib/apt/lists/*
 
 CMD ["code-server", "--allow-http", "--no-auth"]
