@@ -1,11 +1,5 @@
 FROM codercom/code-server:v2
 
-# extensions to code-server
-RUN code-server --install-extension redhat.java && \
-    code-server --install-extension vscjava.vscode-java-pack \
-    code-server --install-extension redhat.vscode-xml \
-    code-server --install-extension dotjoshjohnson.xml
-
 # ubuntu installations (e.g. Python)
 RUN sudo -E apt-get update && sudo -E apt-get install -y \
     python3.7 \
@@ -13,6 +7,18 @@ RUN sudo -E apt-get update && sudo -E apt-get install -y \
     openjdk-11-jdk \
     docker.io\
     maven \
- && sudo rm -rf /var/lib/apt/lists/*
+    locales \
+ && sudo rm -rf /var/lib/apt/lists/* \
+ && sudo locale-gen "de_DE.UTF-8"
 
-CMD ["code-server", "--allow-http", "--no-auth"]
+ENV LANG=de_DE.UTF-8 \
+    LANGUAGE=de_DE:de \
+    LC_ALL=de_DE.UTF-8
+
+# extensions to code-server
+RUN code-server --install-extension redhat.java && \
+    code-server --install-extension vscjava.vscode-java-pack \
+    code-server --install-extension redhat.vscode-xml \
+    code-server --install-extension dotjoshjohnson.xml
+
+CMD ["code-server", "--auth", "password"]
